@@ -15,20 +15,25 @@ char keyInput(bool x);
 void AI(int);
 
 // Funktion Console inhalt löschen
-void clearConsole(){
+void clearConsole()
+{
     system("cls");  // Windows "cls" // Linux "clear"
 }
 
 // Funktion
-void resetField(){
-    for(int i = 0; i < 10; i++){
+void resetField()
+{
+    for(int i = 0; i < 10; i++)
+    {
         field[i] = ' ';
     }
 }
 
 // Funktion Menu
-void menu(){
-    while(true){
+void menu()
+{
+    while(true)
+    {
         resetField();
         char inputmenu;
         cout << "\n\n"
@@ -49,7 +54,8 @@ void menu(){
 }
 
 // Funktion
-void drawField(){
+void drawField()
+{
     clearConsole();
     cout << "\n\n\n"
          << "    " << field[1] << " | " << field[2] << " | " << field[3] << endl
@@ -60,7 +66,8 @@ void drawField(){
 }
 
 // Funktion "singler player"
-void singleplayer(){
+void singleplayer()
+{
     clearConsole();
     char input = ' ';
     int difficulty = 0;
@@ -69,28 +76,34 @@ void singleplayer(){
          <<                     "\n\n 3: Hard \n\n";
     cout << "\n\n\n Input: ";
     cin >> input;
-    switch(input){
+    switch(input)
+    {
         case '1': difficulty = 1; break;
         case '2': difficulty = 2; break;
         case '3': difficulty = 3; break;
         case 'q': return; break;
         default:    cout << "\n Invalid Input!"; singleplayer(); break;
     }
-    while(true){
+    while(true)
+    {
         drawField();
-        if(checkWin('O')){
+        if(checkWin('O'))
+        {
             cout << "\n Computer has won \n\n";
             return;
         }
-        if(checkFull()){
+        if(checkFull())
+        {
             cout << "\n Tie \n\n";
         }
         input = keyInput(true);
         drawField();
-        if(input == 'q'){
+        if(input == 'q')
+        {
             return;
         }
-        if(checkWin('X')){
+        if(checkWin('X'))
+        {
             cout << "\n Player has won \n\n";
             return;
         }
@@ -99,24 +112,30 @@ void singleplayer(){
 }
 
 // Funktion
-void multiplayer(){
+void multiplayer()
+{
     char input = ' ';
     bool player1Turn = true;
-    while(true){
+    while(true)
+    {
         drawField();
-        if(checkWin('X')){
+        if(checkWin('X'))
+        {
             cout << "\n Player1 has won \n\n";
             return;
         }
-        else if(checkWin('O')){
+        else if(checkWin('O'))
+        {
             cout << "\n Player2 has won \n\n ";
             return;
         }
-        if(checkFull()){
+        if(checkFull())
+        {
             cout << "Tie \n\n";
         }
         input = keyInput(player1Turn);
-        if(input == 'q'){
+        if(input == 'q')
+        {
             return;
         }
         player1Turn = !player1Turn;
@@ -124,7 +143,8 @@ void multiplayer(){
 }
 
 // Funktion Help
-void help(){
+void help()
+{
     clearConsole();
     cout << "\n\n\n HELP"
          << "\n\n Singleplayer:"
@@ -135,28 +155,36 @@ void help(){
 
 
 // Funktion keyinput
-char keyInput (bool x){
-    while(true){
+char keyInput (bool x)
+{
+    while(true)
+    {
         cout << "\n\n Input: ";
         char input = ' ';
         cin >> input;
         int inputNumber = input - '0';
-        if(inputNumber > 9 || inputNumber < 1){
-            if(input == 'q'){
+        if(inputNumber > 9 || inputNumber < 1)
+        {
+            if(input == 'q')
+            {
                 return input;
             }
-            else{
+            else
+            {
                 cout << "\n Invalid Input!";
             }
         }
-        else if (field[inputNumber] != ' '){
+        else if (field[inputNumber] != ' ')
+        {
             cout << "\n This field is already used";
         }
         else{
-            if(x){
+            if(x)
+            {
                 field[inputNumber] = 'X';
             }
-            else{
+            else
+            {
                 field[inputNumber] = 'O';
             }
             return input;
@@ -165,11 +193,13 @@ char keyInput (bool x){
 }
 
 // Funktion
-bool checkWin(char sing){
+bool checkWin(char sing)
+{
     if (field[1] == sing && field[2] == sing && field[3] == sing || field[1] == sing && field[4] == sing && field[7] == sing ||
         field[1] == sing && field[5] == sing && field[9] == sing || field[2] == sing && field[5] == sing && field[8] == sing ||
         field[3] == sing && field[6] == sing && field[9] == sing || field[3] == sing && field[5] == sing && field[7] == sing ||
-        field[4] == sing && field[5] == sing && field[6] == sing || field[7] == sing && field[8] == sing && field[9] == sing){
+        field[4] == sing && field[5] == sing && field[6] == sing || field[7] == sing && field[8] == sing && field[9] == sing)
+        {
             return true;
         }
     return false;
@@ -185,8 +215,10 @@ bool checkFull(){
     return true;
 }
 
-void AI(int difficulty){
-    if(checkFull()){
+void AI(int difficulty)
+{
+    if(checkFull())
+    {
         return;
     }
     srand(time(nullptr));
@@ -240,13 +272,18 @@ void AI(int difficulty){
             }
         }
     }
-    else if(difficulty == 2){
+    else if(difficulty == 2)
+    {
         int check = rand() % 5 + 1;
-        if (check != 3){
-           for(int i=1; i<10; i++){
-               if(field[i] == ' '){
+        if (check != 3)
+        {
+           for(int i=1; i<10; i++)
+           {
+               if(field[i] == ' ')
+               {
                    field[i] = 'O';
-           if(checkWin('O')){
+           if(checkWin('O'))
+           {
                     return;
                 }
                 else {
@@ -284,44 +321,56 @@ void AI(int difficulty){
             }
         }
     }
-    else if(difficulty == 3){
+    else if(difficulty == 3)
+    {
         // Hard
         // Check if AI can win
-        for(int i=1; i<10; i++){
-            if(field[i] == ' '){
+        for(int i=1; i<10; i++)
+        {
+            if(field[i] == ' ')
+            {
                 field[i] = 'O';
-                if(checkWin('O')){
+                if(checkWin('O'))
+                {
                     return;
                 }
-                else {
+                else
+                {
                     field[i] = ' ';
                 }
             }
         }
 
         // Check if Player can win and stop it
-        for(int i=1; i<10; i++){
-            if(field[i] == ' '){
+        for(int i=1; i<10; i++)
+        {
+            if(field[i] == ' ')
+            {
                 field[i] = 'X';
-                if(checkWin('X')){
+                if(checkWin('X'))
+                {
                     field[i] = 'O';
                     return;
                 }
-                else {
+                else
+                {
                     field[i] = ' ';
                 }
             }
         }
         // Set to field in the middle with a chance when it is still free
         int middle = rand() % 4;
-        if(field[5] == ' ' && middle != 1){
+        if(field[5] == ' ' && middle != 1)
+        {
             field[5] = 'O';
             return;
         }
         // Set random field
-        while(true){
+        while(true)
+        {
             int i = rand() % 9 + 1;
-            if(field[i] == ' '){
+            if(field[i] == ' ')
+            {
                 field[i] = 'O';
                 return;
             }
